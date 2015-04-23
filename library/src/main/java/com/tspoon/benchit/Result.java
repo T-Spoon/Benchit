@@ -1,31 +1,97 @@
 package com.tspoon.benchit;
 
+import android.util.Pair;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class Result {
+
     String tag;
     ArrayList<Long> times;
     Benchit.Precision precision;
-    float average;
+
+    double average;
+    double deviation;
+
+    long min;
+    long max;
+
 
     Result(Benchmark benchmark) {
         tag = benchmark.tag;
         times = benchmark.times;
         precision = benchmark.precision;
-        average();
+
+        average = average();
+        deviation = deviation();
+
+        long[] minMax = range();
+        min = minMax[0];
+        max = minMax[1];
     }
 
-    void average() {
+    double average() {
         int size = times.size();
         long total = 0;
         for (int i = 0; i < size; i++) {
             total += times.get(i);
         }
-        average = total / (float) size;
+        return total / (double) size;
+    }
+
+    long[] range() {
+        int size = times.size();
+        long min = times.get(0);
+        long max = times.get(0);
+        for (int i = 0; i < size; i++) {
+            long time = times.get(i);
+            if (time > max) {
+                max = time;
+            } else if (time < min) {
+                min = time;
+            }
+        }
+
+        return new long[]{min, max};
+    }
+
+    double deviation() {
+        double mean = average();
+        double temp = 0;
+
+        int size = times.size();
+        for (int i = 0; i < size; i++) {
+            long t = times.get(i);
+            temp += (mean - t) * (mean - t);
+        }
+        return Math.sqrt(temp / size);
     }
 
     public Result log() {
-        Benchit.log("Average", tag, Math.round(average / precision.divider) + precision.unit);
+        List<Pair<String, String>> stats = new ArrayList<>();
+
+        stats.add(new Pair<>("Sample Size", times.size() + ""));
+
+        if (Benchit.STATISTICS.contains(Benchit.Stat.AVERAGE)) {
+            stats.add(new Pair<>("Average", time(average) + precision.unit));
+        }
+        if (Benchit.STATISTICS.contains(Benchit.Stat.RANGE)) {
+            stats.add(new Pair<>("Range", time(min) + precision.unit + " --> " + time(max) + precision.unit));
+        }
+        if (Benchit.STATISTICS.contains(Benchit.Stat.STANDARD_DEVIATION)) {
+            stats.add(new Pair<>("Deviation", time(deviation) + precision.unit));
+        }
+
+        Benchit.logMany(tag, stats);
         return this;
+    }
+
+    private long time(long stat) {
+        return Math.round(stat / (double) precision.divider);
+    }
+
+    private long time(double stat) {
+        return Math.round(stat / precision.divider);
     }
 }

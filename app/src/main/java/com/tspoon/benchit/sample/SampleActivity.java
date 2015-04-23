@@ -34,7 +34,7 @@ public class SampleActivity extends ActionBarActivity {
 
         final ArrayList<Comparison> comparisons = getComparisons();
         //mAdapter = new BenchmarkListAdapter(this, getComparisons());
-        mAdapter = new BasicAdapter<String>(this, new ArrayList<String>());
+        mAdapter = new BasicAdapter<>(this, new ArrayList<String>());
         mList.setAdapter(mAdapter);
 
         new Thread(new Runnable() {

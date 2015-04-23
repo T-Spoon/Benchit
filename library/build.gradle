@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'android-maven'
 
 android {
     compileSdkVersion 22
@@ -22,29 +21,3 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
-
-// build a jar with source files
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
-artifacts {
-    archives sourcesJar
-}
-
-/*
-def coreAarFile = file('build/outputs/aar/Library.aar')
-artifacts {
-    archives coreAarFile
-}
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: "file:/H:/")
-            pom.groupId = 'com.tspoob.benchit'
-            pom.artifactId = 'benchit'
-            pom.version = '0.1.0'
-        }
-    }
-}
-*/

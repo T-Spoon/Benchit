@@ -9,7 +9,7 @@ public class Benchmark {
 
     Benchmark(String tag, long time) {
         this.tag = tag;
-        times = new ArrayList<Long>();
+        times = new ArrayList<>();
         times.add(time);
         precision = Benchit.Precision.MILLI;
     }

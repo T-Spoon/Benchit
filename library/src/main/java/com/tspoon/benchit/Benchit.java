@@ -1,20 +1,30 @@
 package com.tspoon.benchit;
 
 import android.util.Log;
+import android.util.Pair;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class Benchit {
 
-    public static final String TAG = "BenchIt";
+    public static final String TAG = "Benchit";
+
+    static Benchit.Precision DEFAULT_PRECISION = Benchit.Precision.MILLI;
+    static Set<Stat> STATISTICS = new HashSet<>();
+
     private static Benchit singleton;
 
     private HashMap<String, Long> starts;
     private HashMap<String, Benchmark> benchmarks;
 
     Benchit() {
-        starts = new HashMap<String, Long>();
-        benchmarks = new HashMap<String, Benchmark>();
+        starts = new HashMap<>();
+        benchmarks = new HashMap<>();
+        Benchit.setEnabledStats(Stat.AVERAGE, Stat.RANGE, Stat.STANDARD_DEVIATION);
     }
 
     private static Benchit get() {
@@ -52,6 +62,17 @@ public class Benchit {
         return singleton.compareInternal(tags);
     }
 
+    public static void setDefaultPrecision(Precision precision) {
+        if (precision != null) {
+            DEFAULT_PRECISION = precision;
+        }
+    }
+
+    public static void setEnabledStats(Stat... stats) {
+        STATISTICS = new HashSet<>();
+        Collections.addAll(STATISTICS, stats);
+    }
+
     private Benchit beginInternal(String tag) {
         starts.put(tag, System.nanoTime());
         return this;
@@ -78,7 +99,6 @@ public class Benchit {
     }
 
     private ComparisonResult compareInternal(String... tags) {
-
         return new ComparisonResult();
     }
 
@@ -87,6 +107,19 @@ public class Benchit {
         Log.d(TAG, log);
     }
 
+    static void logMany(String tag, List<Pair<String, String>> stats) {
+        StringBuilder sb = new StringBuilder("[" + tag + "] --> ");
+
+        for (Pair<String, String> stat : stats) {
+            sb.append(String.format("%s[%s], ", stat.first, stat.second));
+        }
+
+        Log.d(TAG, sb.toString());
+    }
+
+    public static enum Stat {
+        AVERAGE, RANGE, STANDARD_DEVIATION
+    }
 
     public static enum Precision {
         NANO("ns", 1),
