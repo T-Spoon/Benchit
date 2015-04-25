@@ -3,6 +3,24 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light">
         <item name="android:windowBackground">@color/white</item>
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="colorPrimary">@android:color/white</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionModeOverlay">true</item>
+
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="AppTheme.Toolbar" parent="Theme.AppCompat">
+        <item name="android:textColorPrimary">@color/textColorPrimaryInverse</item>
+        <item name="actionMenuTextColor">@color/textColorPrimaryInverse</item>
+        <item name="android:textColorSecondary">@color/textColorPrimaryInverse</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
     </style>
 
     <style name="Benchit.ListView" parent="android:Widget.ListView">
@@ -12,13 +30,13 @@
     </style>
 
     <style name="Benchit.ListView.ListItem" parent="android:Widget">
-        <item name="android:background">@color/background_dark</item>
+        <item name="android:background">@color/colorPrimary</item>
         <item name="android:padding">5dp</item>
     </style>
 
     <style name="Benchit.ListView.ListItem.Text" parent="android:Widget.TextView">
-        <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/textColorPrimaryInverse</item>
     </style>
 
 </resources>

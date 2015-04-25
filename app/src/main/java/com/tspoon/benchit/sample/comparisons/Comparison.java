@@ -1,24 +1,22 @@
 package com.tspoon.benchit.sample.comparisons;
 
-import android.util.Log;
-
 import java.util.List;
 
-public abstract class Comparison {
+import timber.log.Timber;
 
-    private static final String TAG = "Comparison";
+public abstract class Comparison {
 
     List<Benchmark> mBenchmarks;
 
     public abstract void setup();
 
     public final void runComparisons() {
-        Log.d(TAG, "Beginning Comparison: " + getName());
+        Timber.d("Begin Comparison: " + getName());
         for (Benchmark benchmark : mBenchmarks) {
             benchmark.setup();
             benchmark.runBenchmarks();
         }
-        Log.d(TAG, "End Comparison: " + getName());
+        Timber.d("End Comparison: " + getName());
     }
 
     public String getName() {

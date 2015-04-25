@@ -3,6 +3,7 @@ package com.tspoon.benchit;
 import android.util.Log;
 import android.util.Pair;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -55,11 +56,18 @@ public class Benchit {
         return singleton.analyzeInternal(tag);
     }
 
-    public static ComparisonResult compare(String... tags) {
+    public static Benchit clear() {
         if (singleton == null) {
             singleton = get();
         }
-        return singleton.compareInternal(tags);
+        return singleton.clearInternal();
+    }
+
+    public static ComparisonResult compare(Stat orderBy, String... tags) {
+        if (singleton == null) {
+            singleton = get();
+        }
+        return singleton.compareInternal(orderBy, tags);
     }
 
     public static void setDefaultPrecision(Precision precision) {
@@ -98,8 +106,19 @@ public class Benchit {
         return benchmark.result();
     }
 
-    private ComparisonResult compareInternal(String... tags) {
-        return new ComparisonResult();
+    private Benchit clearInternal() {
+        starts.clear();
+        benchmarks.clear();
+        return this;
+    }
+
+    private ComparisonResult compareInternal(Stat orderBy, String... tags) {
+        ArrayList<Result> results = new ArrayList<>();
+        for (String tag : tags) {
+            results.add(analyzeInternal(tag));
+        }
+
+        return new ComparisonResult(results);
     }
 
     static void log(String type, String tag, String result) {
@@ -113,6 +132,7 @@ public class Benchit {
         for (Pair<String, String> stat : stats) {
             sb.append(String.format("%s[%s], ", stat.first, stat.second));
         }
+        sb.delete(sb.length() - 2, sb.length() - 1);
 
         Log.d(TAG, sb.toString());
     }

@@ -9,7 +9,7 @@ public class ArrayListComparison extends Comparison {
 
     @Override
     public void setup() {
-        mBenchmarks = new ArrayList<Benchmark>();
+        mBenchmarks = new ArrayList<>();
         mBenchmarks.add(new BenchmarkArrayListNaive());
         mBenchmarks.add(new BenchmarkArrayListEnhanced());
         mBenchmarks.add(new BenchmarkArrayListFast());

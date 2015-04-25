@@ -9,14 +9,19 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 public class BasicAdapter<T> extends BaseAdapter {
 
     LayoutInflater mInflater;
     List<T> mItems;
+    Context mContext;
 
     public BasicAdapter(Context context, List<T> items) {
         mInflater = LayoutInflater.from(context);
         mItems = items;
+        mContext = context;
     }
 
     @Override
@@ -36,17 +41,29 @@ public class BasicAdapter<T> extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder holder;
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.list_item_benchmark, parent, false);
+            holder = new ViewHolder(convertView);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
 
-        TextView textView = (TextView) convertView.findViewById(R.id.item_name);
-        textView.setText(mItems.get(position).toString());
+        holder.textView.setText(mItems.get(position).toString());
         return convertView;
     }
 
     public void addItem(T item) {
         mItems.add(item);
         notifyDataSetChanged();
+    }
+
+    class ViewHolder {
+        @InjectView(R.id.item_name) TextView textView;
+
+        public ViewHolder(View view) {
+            ButterKnife.inject(this, view);
+            view.setTag(this);
+        }
     }
 }

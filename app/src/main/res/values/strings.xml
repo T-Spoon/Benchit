@@ -2,8 +2,14 @@
 <resources>
 
     <string name="app_name">Benchit</string>
-    <string name="title_activity_sample">SampleActivity</string>
-    <string name="hello_world">Hello world!</string>
+
+    <string name="url_github">https://github.com/T-Spoon/Benchit</string>
+    <string name="url_share">@string/url_github</string>
+
+    <string name="text_share">Benchit - Minimalist Benchmarking on Android: %s</string>
+
+    <string name="action_share">Share</string>
+    <string name="action_github">Settings</string>
     <string name="action_settings">Settings</string>
 
 </resources>

@@ -8,7 +8,7 @@ public class InternalGetterComparison extends Comparison {
 
     @Override
     public void setup() {
-        mBenchmarks = new ArrayList<Benchmark>();
+        mBenchmarks = new ArrayList<>();
         mBenchmarks.add(new BenchmarkInternalAccess());
         mBenchmarks.add(new BenchmarkInternalGetter());
     }

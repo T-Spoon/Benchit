@@ -11,7 +11,7 @@ public abstract class Benchmark {
     ArrayList<Result> mResults;
 
     public void setup() {
-        mResults = new ArrayList<Result>();
+        mResults = new ArrayList<>();
     }
 
     public final void runBenchmarks() {

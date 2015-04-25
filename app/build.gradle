@@ -21,7 +21,8 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22+'
-    compile 'com.jakewharton:butterknife:+'
+    compile 'com.android.support:appcompat-v7:22.1.1'
+    compile 'com.jakewharton:butterknife:6.1+'
+    compile 'com.jakewharton.timber:timber:3.0.1'
     compile project(':library')
 }

@@ -10,7 +10,7 @@ public class Data {
     private ArrayList<Integer> sampleArrayList;
 
     private Data() {
-        sampleArrayList = new ArrayList<Integer>(LIST_SIZE);
+        sampleArrayList = new ArrayList<>(LIST_SIZE);
         for (int i = 0; i < LIST_SIZE; i++) {
             sampleArrayList.add(i);
         }
