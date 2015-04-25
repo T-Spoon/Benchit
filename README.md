@@ -1,6 +1,6 @@
 Benchit
 ============
-Minimalist micro-benchmarking framework for Android. 
+Fast & simple benchmarking framework for Android.  Ever had the feeling that certain parts of your code were slow? Now you can prove it (and make sure your refactor worked)!  
 
 Usage
 ------
@@ -33,6 +33,14 @@ Benchit.setEnabledStats(Benchit.Stat.AVERAGE, Benchit.Stat.STANDARD_DEVIATION);
 Benchit.setDefaultPrecision(Benchit.Precision.MICRO);
 ```
 
+Tips
+------
+Benchmarking can be a funny thing.  The Dalvik JIT & ART AoT compilers can optimize certain blocks of code without you knowing, which could lead to inaccurate results. So here are a couple of tips for ensuring your benchmarking correctly (or as correctly as possible):
+- Run your benchmarks for enough iterations to be meaningful.  If you see inconsistent results, the code probably hasn't been run enough.
+- Run `System.gc()` between benchmarks, so that the liklihood of a garbage collector pause during one of your tests is reduced.
+- As always - don't over-optimize!  If the differences in your benchmarks aren't significant, then don't sacrifice simplicity & readability for speed.
+
+
 Download
 ------
 Add the following code to your `build.gradle` file (as described on [JitPack])
@@ -43,7 +51,7 @@ repositories {
     }
 }
 dependencies {
-    compile 'com.github.T-Spoon.Benchit:library:v1.0.1'
+    compile 'com.github.T-Spoon.Benchit:library:v1.0.2'
 }
 ```
 
