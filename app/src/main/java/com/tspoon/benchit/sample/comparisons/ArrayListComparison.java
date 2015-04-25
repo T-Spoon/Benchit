@@ -1,5 +1,6 @@
 package com.tspoon.benchit.sample.comparisons;
 
+import com.tspoon.benchit.Benchit;
 import com.tspoon.benchit.sample.data.Data;
 
 import java.util.ArrayList;
@@ -13,6 +14,11 @@ public class ArrayListComparison extends Comparison {
         mBenchmarks.add(new BenchmarkArrayListNaive());
         mBenchmarks.add(new BenchmarkArrayListEnhanced());
         mBenchmarks.add(new BenchmarkArrayListFast());
+    }
+
+    @Override
+    public Benchit.Precision getPrecision() {
+        return Benchit.Precision.MILLI;
     }
 
     class BenchmarkArrayListNaive extends Benchmark {

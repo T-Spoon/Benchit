@@ -27,6 +27,7 @@
         <item name="android:listSelector">@android:color/transparent</item>
         <item name="android:dividerHeight">8dp</item>
         <item name="android:divider">@null</item>
+        <item name="android:scrollbars">none</item>
     </style>
 
     <style name="Benchit.ListView.ListItem" parent="android:Widget">

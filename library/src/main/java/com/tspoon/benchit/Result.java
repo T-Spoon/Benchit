@@ -31,7 +31,7 @@ public class Result {
         max = minMax[1];
     }
 
-    double average() {
+    private double average() {
         int size = times.size();
         long total = 0;
         for (int i = 0; i < size; i++) {
@@ -40,7 +40,7 @@ public class Result {
         return total / (double) size;
     }
 
-    long[] range() {
+    private long[] range() {
         int size = times.size();
         long min = times.get(0);
         long max = times.get(0);
@@ -56,7 +56,7 @@ public class Result {
         return new long[]{min, max};
     }
 
-    double deviation() {
+    private double deviation() {
         double mean = average();
         double temp = 0;
 
@@ -66,6 +66,19 @@ public class Result {
             temp += (mean - t) * (mean - t);
         }
         return Math.sqrt(temp / size);
+    }
+
+    double getStat(Benchit.Stat stat) {
+        switch (stat) {
+            case AVERAGE:
+                return average;
+            case STANDARD_DEVIATION:
+                return deviation;
+            case RANGE:
+                return max - min;
+            default:
+                throw new IllegalArgumentException("Stat not implemented yet: " + stat);
+        }
     }
 
     public Result log() {

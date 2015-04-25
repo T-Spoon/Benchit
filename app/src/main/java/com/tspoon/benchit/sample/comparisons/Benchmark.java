@@ -14,12 +14,12 @@ public abstract class Benchmark {
         mResults = new ArrayList<>();
     }
 
-    public final void runBenchmarks() {
+    public final void runBenchmarks(Benchit.Precision precision) {
         String name = getBenchmarkName();
         for (int i = 0; i < Config.NUM_TESTS; i++) {
             Benchit.begin(name);
             benchmark();
-            Benchit.end(name);
+            Benchit.end(name).precision(precision);
         }
         mResults.add(Benchit.analyze(name).log());
     }

@@ -63,11 +63,15 @@ public class Benchit {
         return singleton.clearInternal();
     }
 
-    public static ComparisonResult compare(Stat orderBy, String... tags) {
+    public static ComparisonResult compare(Stat orderBy, Order order, String... tags) {
         if (singleton == null) {
             singleton = get();
         }
-        return singleton.compareInternal(orderBy, tags);
+        return singleton.compareInternal(orderBy, order, tags);
+    }
+
+    public static ComparisonResult compare(Stat orderBy, String... tags) {
+        return compare(orderBy, Order.ASCENDING, tags);
     }
 
     public static void setDefaultPrecision(Precision precision) {
@@ -112,13 +116,24 @@ public class Benchit {
         return this;
     }
 
-    private ComparisonResult compareInternal(Stat orderBy, String... tags) {
+    private ComparisonResult compareInternal(Stat orderBy, Order order, String... tags) {
         ArrayList<Result> results = new ArrayList<>();
-        for (String tag : tags) {
-            results.add(analyzeInternal(tag));
+
+        if (tags.length == 0) {
+            for (String tag : benchmarks.keySet()) {
+                results.add(analyzeInternal(tag));
+            }
+        } else {
+            for (String tag : tags) {
+                results.add(analyzeInternal(tag));
+            }
         }
 
-        return new ComparisonResult(results);
+        return new ComparisonResult(orderBy, order, results);
+    }
+
+    static void log(String message) {
+        Log.d(TAG, message);
     }
 
     static void log(String type, String tag, String result) {
@@ -139,6 +154,10 @@ public class Benchit {
 
     public static enum Stat {
         AVERAGE, RANGE, STANDARD_DEVIATION
+    }
+
+    public static enum Order {
+        ASCENDING, DESCENDING
     }
 
     public static enum Precision {

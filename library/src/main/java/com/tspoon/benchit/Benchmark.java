@@ -11,7 +11,7 @@ public class Benchmark {
         this.tag = tag;
         times = new ArrayList<>();
         times.add(time);
-        precision = Benchit.Precision.MILLI;
+        precision = Benchit.DEFAULT_PRECISION;
     }
 
     public Benchmark precision(Benchit.Precision precision) {

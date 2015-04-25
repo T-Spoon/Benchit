@@ -1,5 +1,7 @@
 package com.tspoon.benchit.sample.comparisons;
 
+import com.tspoon.benchit.Benchit;
+
 import java.util.ArrayList;
 
 public class InternalGetterComparison extends Comparison {
@@ -11,6 +13,11 @@ public class InternalGetterComparison extends Comparison {
         mBenchmarks = new ArrayList<>();
         mBenchmarks.add(new BenchmarkInternalAccess());
         mBenchmarks.add(new BenchmarkInternalGetter());
+    }
+
+    @Override
+    public Benchit.Precision getPrecision() {
+        return Benchit.Precision.MICRO;
     }
 
 
