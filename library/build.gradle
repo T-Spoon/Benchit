@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'android-maven'
 
 android {
     compileSdkVersion 22
@@ -20,4 +21,13 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+// build a jar with source files for JitPack
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+artifacts {
+    archives sourcesJar
 }
