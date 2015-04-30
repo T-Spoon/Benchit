@@ -51,7 +51,7 @@ repositories {
     }
 }
 dependencies {
-    compile 'com.github.T-Spoon.Benchit:library:v1.0.2'
+    compile 'com.github.T-Spoon:Benchit:v1.0.2'
 }
 ```
 
