@@ -37,7 +37,7 @@ Tips
 ------
 Benchmarking can be a funny thing.  The Dalvik JIT & ART AoT compilers can optimize certain blocks of code without you knowing, which could lead to inaccurate results. So here are a couple of tips for ensuring your benchmarking correctly (or as correctly as possible):
 - Run your benchmarks for enough iterations to be meaningful.  If you see inconsistent results, the code probably hasn't been run enough.
-- Run `System.gc()` between benchmarks, so that the liklihood of a garbage collector pause during one of your tests is reduced.
+- Run `System.gc()` between benchmarks, so that the likelihood of a garbage collector pause during one of your tests is reduced.
 - As always - don't over-optimize!  If the differences in your benchmarks aren't significant, then don't sacrifice simplicity & readability for speed.
 
 
